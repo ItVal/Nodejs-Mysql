@@ -8,20 +8,13 @@
 </head>
 <body>
     <div style="width: 50%; margin: auto;""">
-        <!-- <% const name = 'Valentin nas' %>   declaration d'une variable ejs -->
-        <p><%= heureConnecter %></p>  <!-- affichage de notre balise heureConnecter déclarer dans notre serveur app.js-->
+    
+        <!-- affichage contenu de notre entête se trouvant dans le composant header grace a la fonction include -->
+        <%- include('./composants/header') %> 
        
-        <head>
-            <!-- <h1>Node Application by : <%= name %></h1>  affichage de la variable name dans la balise h1  tout ça, ça se fait plutôt sur le fichier serveur app.js pour notre cas-->
-            <h1>Node Application by Valentin nas</h1>
-            <nav>
-                <ul>
-                    <li><a href="/">Accueil</a></li>
-                    <li><a href="/apropos">A propos</a></li>
-                </ul>
-            </nav>
-        </head>
-        <section>
+       
+       
+       <section>
             <form action="">
                 <label for="titre">Titre</label> <br>
                 <input type="text" name="titre" id="titre"> <br>
