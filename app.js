@@ -21,7 +21,12 @@ app.set('views', 'IHM')  //Definition du dossier où nos fichier ejs se trouve "
 
 //definition des routes
 app.get('/', (req, res) =>{     //envoie de la requête avec la méthode get
-        res.status(200).render("index");   //renvoie de la reponse qui est la page index.html dans notre cas
+    const heureConnecter = Date().toString() //declaration d'une variable qui va afficher l'heure connecter dans notre page index
+    const tab = [
+        {titre: "Creation contenu de la liste", desc: "Création de moteur d'affiche ejs"},
+        {titre: "Programmation web", desc: "Comment devenir un programmeur web full stack"}
+    ]
+    res.status(200).render("index", {heureConnecter, tab});   //renvoie de la reponse qui est la page index.html dans notre cas
     })
     
     app.get('/apropos', (req, res) =>{     //envoie de la requête avec la méthode get

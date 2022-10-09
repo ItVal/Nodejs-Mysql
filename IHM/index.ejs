@@ -8,8 +8,12 @@
 </head>
 <body>
     <div style="width: 50%; margin: auto;""">
+        <!-- <% const name = 'Valentin nas' %>   declaration d'une variable ejs -->
+        <p><%= heureConnecter %></p>  <!-- affichage de notre balise heureConnecter déclarer dans notre serveur app.js-->
+       
         <head>
-            <h1>Node Application</h1>
+            <!-- <h1>Node Application by : <%= name %></h1>  affichage de la variable name dans la balise h1  tout ça, ça se fait plutôt sur le fichier serveur app.js pour notre cas-->
+            <h1>Node Application by Valentin nas</h1>
             <nav>
                 <ul>
                     <li><a href="/">Accueil</a></li>
@@ -29,6 +33,13 @@
             <p>=======================================</p>
             <section>
                 <h2>Liste des notes</h2>
+                <!-- affichage des élément du tableau, déclarer dans notre fichier serveur app.js -->
+                <ul>
+                    <% for(i=0; i<tab.length; i++){ %>
+                        <li><%= tab[i].titre + ' : ' + tab[i].desc%></li>
+                    <%}%>
+                </ul>
+
             </section>
         </section>
     </div>
