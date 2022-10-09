@@ -1,0 +1,14 @@
+{
+  "name": "views_engin",
+  "version": "1.0.0",
+  "description": "moteur d'affichage",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "valnas",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
