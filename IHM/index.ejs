@@ -15,6 +15,7 @@
               
        <section>
             <form action="/notes" method="post">
+                <input type="hidden" name="id" id="id">
                 <label for="titre">Titre</label> <br>
                 <input type="text" name="titre" id="titre"> <br>
                 <label for="description">Description</label> <br>
@@ -32,6 +33,10 @@
 
                         <h3><%= resultat[i].titre %></h3>
                         <p><%= resultat[i].description %></p>
+
+                        <!-- ajout bouton modifier et supprimer -->
+                        <input type="button" value="Modifier" onclick="modifierDonnes('<%= resultat[i].id %>', '<%= resultat[i].titre %>', '<%= resultat[i].description %>' )">
+                        <input type="button" value="Supprimer" onclick="">
                         
                     <%}%>
                
@@ -41,4 +46,13 @@
         </section>
     </div>
 </body>
+
+<!-- script pour recuperer les ids de balise titre, description et id -->
+<script>
+    function modifierDonnes(id, titre, desc){
+        document.getElementById('id').value = id;
+        document.getElementById('titre').value = titre;
+        document.getElementById('description').value = desc;
+    }
+</script>
 </html>

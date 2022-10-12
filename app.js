@@ -50,7 +50,7 @@ app.set("views", "IHM"); //Definition du dossier où nos fichier ejs se trouve "
 //         res.status(404).render("erreur");   //renvoie de la reponse qui est la page erreur.html dans notre cas
 //     })
 
-// DataBase 'get method'
+// DataBase 'GET method' : affichage de resultat se trouvant dans la base de données
 //Definitions du middleware
 app.use(myConnection(mysql, optionBd, "pool"));
 app.get("/", (req, res) => {
@@ -69,29 +69,60 @@ app.get("/", (req, res) => {
   });
 });
 
-// DataBase 'POST method'
-//Definitions du middleware
-app.use(express.urlencoded({extended: false}));
-app.post("/notes", (req, res) => {
-    let titre = req.body.titre ;         //declaration titre
-    let description = req.body.description ;  //declaration description
+// DataBase 'POST method' : ajout de données dans la base de base
+// Definitions du middleware
+// app.use(express.urlencoded({extended: false}));
+// app.post("/notes", (req, res) => {
+//     let titre = req.body.titre ;         //declaration titre
+//     let description = req.body.description ;  //declaration description
 
-    req.getConnection((erreur, connection) => {
-      if (erreur) {
-        console.log(erreur);
-      } else {
-        connection.query
-        ("INSERT INTO notes(id, titre, description) VALUES (?, ?, ?)", 
-        [null, titre, description], 
-        (erreur, resultat) => {
-          if (erreur) {
-            console.log(erreur);
-          } else {
-            res.status(300).redirect("/");
-          }
-        });
-      }
-    });
+//     req.getConnection((erreur, connection) => {
+//       if (erreur) {
+//         console.log(erreur);
+//       } else {
+//         connection.query
+//         ("INSERT INTO notes(id, titre, description) VALUES (?, ?, ?)", 
+//         [null, titre, description], 
+//         (erreur, resultat) => {
+//           if (erreur) {
+//             console.log(erreur);
+//           } else {
+//             res.status(300).redirect("/");
+//           }
+//         });
+//       }
+//     });
+// });
+
+//DataBase 'POST method' : Ajout et modification de données de la base de données
+app.use(express.urlencoded({ extended: false }));
+app.post("/notes", (req, res) => {
+  let id = req.body.id === "" ? null : req.body.id; //condition ternaire pour l'affectation de l'id
+  let titre = req.body.titre; //declaration titre
+  let description = req.body.description; //declaration description
+
+  // variable qui va nous aider d'envoyer une requête d'ajout ou de modification selon le besoin de l'utilisateur
+  let reqSql =
+    id === null
+      ? "INSERT INTO notes(id, titre, description) VALUES (?, ?, ?)"
+      : "UPDATE notes SET titre = ?, description = ? WHERE id = ? ";
+  //Gestion d'ajout ou de modification dès que l'utilisateur clique sur le bouton enregistrer
+  let donnees =
+    id === "" ? [null, titre, description] : [titre, description, id];
+
+  req.getConnection((erreur, connection) => {
+    if (erreur) {
+      console.log(erreur);
+    } else {
+      connection.query(reqSql, donnees, (erreur, resultat) => {
+        if (erreur) {
+          console.log(erreur);
+        } else {
+          res.status(300).redirect("/");
+        }
+      });
+    }
+  });
 });
 
 //créatios du serveur pour écouter écoute les requête
