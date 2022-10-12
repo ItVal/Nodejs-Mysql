@@ -50,7 +50,7 @@ app.set("views", "IHM"); //Definition du dossier où nos fichier ejs se trouve "
 //         res.status(404).render("erreur");   //renvoie de la reponse qui est la page erreur.html dans notre cas
 //     })
 
-// DataBase
+// DataBase 'get method'
 //Definitions du middleware
 app.use(myConnection(mysql, optionBd, "pool"));
 app.get("/", (req, res) => {
@@ -67,6 +67,31 @@ app.get("/", (req, res) => {
       });
     }
   });
+});
+
+// DataBase 'POST method'
+//Definitions du middleware
+app.use(express.urlencoded({extended: false}));
+app.post("/notes", (req, res) => {
+    let titre = req.body.titre ;         //declaration titre
+    let description = req.body.description ;  //declaration description
+
+    req.getConnection((erreur, connection) => {
+      if (erreur) {
+        console.log(erreur);
+      } else {
+        connection.query
+        ("INSERT INTO notes(id, titre, description) VALUES (?, ?, ?)", 
+        [null, titre, description], 
+        (erreur, resultat) => {
+          if (erreur) {
+            console.log(erreur);
+          } else {
+            res.status(300).redirect("/");
+          }
+        });
+      }
+    });
 });
 
 //créatios du serveur pour écouter écoute les requête

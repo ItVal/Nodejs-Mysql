@@ -8,14 +8,13 @@
 </head>
 <body>
     <div style="width: 50%; margin: auto;""">
-    
+     <h1>Notes App</h1>
         <!-- affichage contenu de notre entête se trouvant dans le composant header grace a la fonction include -->
         <%- include('./composants/header') %> 
        
-       
-       
+              
        <section>
-            <form action="">
+            <form action="/notes" method="post">
                 <label for="titre">Titre</label> <br>
                 <input type="text" name="titre" id="titre"> <br>
                 <label for="description">Description</label> <br>
