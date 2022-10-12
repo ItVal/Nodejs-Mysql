@@ -12,7 +12,7 @@ const optionBd = {
   user: "root",
   password: "",
   port: 3308,
-  database: "Noes_bd"
+  database: "Noes_bd",
 };
 
 // // definition de route
@@ -81,8 +81,8 @@ app.get("/", (req, res) => {
 //         console.log(erreur);
 //       } else {
 //         connection.query
-//         ("INSERT INTO notes(id, titre, description) VALUES (?, ?, ?)", 
-//         [null, titre, description], 
+//         ("INSERT INTO notes(id, titre, description) VALUES (?, ?, ?)",
+//         [null, titre, description],
 //         (erreur, resultat) => {
 //           if (erreur) {
 //             console.log(erreur);
@@ -121,6 +121,30 @@ app.post("/notes", (req, res) => {
           res.status(300).redirect("/");
         }
       });
+    }
+  });
+});
+
+//DataBase 'Delete method' : suppression de données de la base de données
+app.use(express.urlencoded({ extended: false }));
+app.delete("/notes/:id", (req, res) => {
+  let id = req.params.id; //id de l'élément à supprimer
+
+  req.getConnection((erreur, connection) => {
+    if (erreur) {
+      console.log(erreur);
+    } else {
+      connection.query(
+        "DELETE FROM notes WHERE id=?",
+        [id],
+        (erreur, resultat) => {
+          if (erreur) {
+            console.log(erreur);
+          } else {
+            res.status(200).json({ routeRacine: "/" });
+          }
+        }
+      );
     }
   });
 });

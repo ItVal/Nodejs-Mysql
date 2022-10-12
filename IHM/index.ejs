@@ -36,7 +36,7 @@
 
                         <!-- ajout bouton modifier et supprimer -->
                         <input type="button" value="Modifier" onclick="modifierDonnes('<%= resultat[i].id %>', '<%= resultat[i].titre %>', '<%= resultat[i].description %>' )">
-                        <input type="button" value="Supprimer" onclick="">
+                        <input type="button" value="Supprimer" onclick="supprimerDonnee('<%= resultat[i].id %>')">
                         
                     <%}%>
                
@@ -53,6 +53,14 @@
         document.getElementById('id').value = id;
         document.getElementById('titre').value = titre;
         document.getElementById('description').value = desc;
+    }
+
+    const supprimerDonnee = (id) => {
+        let pointFinal = "notes/" + id;
+        fetch(pointFinal, {method: "DELETE"})
+        .then((reponse) => reponse.json())
+        .then((donnee) => window.location.href=donnee.routeRacine)
+        .catch((erreur) => console.log(erreur))
     }
 </script>
 </html>
