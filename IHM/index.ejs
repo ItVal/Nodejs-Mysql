@@ -32,16 +32,19 @@
                     <% for(i=0; i<resultat.length; i++){ %>
 
                         <h3><%= resultat[i].titre %></h3>
-                        <p><%= resultat[i].description %></p>
+                        <p><%= resultat[i].description %></p> 
 
                         <!-- ajout bouton modifier et supprimer -->
-                        <input type="button" value="Modifier" onclick="modifierDonnes('<%= resultat[i].id %>', '<%= resultat[i].titre %>', '<%= resultat[i].description %>' )">
+                        <input type="button" value="Modifier" onclick="modifierDonnes('<%= resultat[i].id %>', 
+                                                                                      '<%= resultat[i].titre %>', 
+                                                                                      '<%= resultat[i].description %>' 
+                                                                                      )">
                         <input type="button" value="Supprimer" onclick="supprimerDonnee('<%= resultat[i].id %>')">
                         
                     <%}%>
-               
 
 
+                    
             </section>
         </section>
     </div>
